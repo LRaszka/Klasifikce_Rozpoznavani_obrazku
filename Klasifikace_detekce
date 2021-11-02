@@ -1,0 +1,30 @@
+from tensorflow.keras.preprocessing import image #import keras knihovny #spuštění alt + enter
+#keras aplication https://keras.io/api/applications/
+from tensorflow.keras.applications.efficientnet import EfficientNetB7, preprocess_input, decode_predictions #dataset 
+import matplotlib.pyplot as plt
+import numpy as np
+
+
+
+model = EfficientNetB7() #tvorba sítě
+
+
+
+img = image.load_img('2.jpg', target_size=(600,600)) #načtení obrázku
+plt.imshow(img)
+plt.show
+
+x = image.img_to_array(img) #převod do pole
+x = preprocess_input(x) #předzpracování
+x = np.expand_dims(x, axis=0) #změna dimenze
+
+
+
+y = model.predict(x) #vytvoření predikce
+y = decode_predictions(y, top=10)
+y = y[0]
+
+
+
+print(y)
+
